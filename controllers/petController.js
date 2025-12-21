@@ -46,7 +46,7 @@ exports.createPetPage = (req, res) => {
 
 exports.loginAttempt = (req, res) => {
   if (req.body.username == process.env.ADMINUSERNAME && req.body.password == process.env.ADMINPASSWORD) {
-    res.cookie("petadoption", process.env.SESSIONCOOKIEVALUE, { httpOnly: true, sameSite: "strict", path: "/", secure: true })
+    res.cookie("petadoption", process.env.SESSIONCOOKIEVALUE, { httpOnly: true, sameSite: "strict", path: "/", secure: process.env.NODE_ENV === "production" })
     res.redirect("/admin")
   } else {
     res.redirect("/admin?failedAttempt=true")
